@@ -2,8 +2,13 @@ import json
 import os
 
 
-def get_secreat(key):
+def get_secret(key:str) -> str:
     BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+    print('basedir : ', BASE_DIR)
     with open(os.path.join(BASE_DIR, "key.json")) as f:
-        secret_file = json.load(f.read())
-        print('secret_file : ', secret_file)
+        try:
+            secret_file = json.loads(f.read())
+        except Exception as e:
+            print("error : ",e)
+
+    return secret_file[key]
